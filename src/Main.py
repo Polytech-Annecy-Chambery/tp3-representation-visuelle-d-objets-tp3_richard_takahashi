@@ -39,14 +39,16 @@ def Q2c():
             )
 
 def Q3a():
-    pass  
+    return Configuration().add(
+      Wall({'position': [1, 1, 0], 'width' : 7, 'height' : 2.6, 'color' : [0, 1, 1]})
+    )  
 
 def Q4a():
     # Ecriture en utilisant des variables : A compléter
-    wall1 = Wall(...)
-    wall2 = Wall(...)
-    wall3 = Wall(...)
-    wall4 = Wall(...)  
+    wall1 = Wall({'position': [0, 0, 0], 'width' : 5, 'height' : 3, 'orientation' : 0, 'color' : [0, 0, 1]})
+    wall2 = Wall({'position': [0, 0, 0], 'width' : 3, 'height' : 3, 'orientation' : 90, 'color' : [0, 1, 0]})
+    wall3 = Wall({'position': [0, 2.8, 0], 'width' : 5, 'height' : 3, 'orientation' : 0, 'color' : [0, 1, 1]})
+    wall4 = Wall({'position': [0, -5, 0], 'width' : 2.8, 'height' : 3, 'orientation' : 90, 'color' : [1, 0, 0]})  
     house = House({'position': [-3, 1, 0], 'orientation':0})
     house.add(wall1).add(wall3).add(wall4).add(wall2)
     return Configuration().add(house)   
@@ -81,14 +83,36 @@ def Q5c1():
 def Q5c2():      
     section = Section({'width':7, 'height':2.6})
     opening2 = Opening({'position': [4, 0, 1.2], 'width':1.25, 'height':1, 'thickness':0.2, 'color': [0.7, 0.7, 0.7]}) 
-    sections = section.createNewSections(opening2)
+    sections = section.createOpening(opening2)
     configuration = Configuration()
     for section in sections:
         configuration.add(section)    
     return configuration    
 
 def Q5d():      
-    pass
+    section = Section({'width':7, 'height':2.6})
+    mur = Wall({'width':7, 'height':2.6})
+    opening1 = Opening({'position': [2, 0, 0], 'width':0.9, 'height':2.15, 'thickness':0.2, 'color': [0.7, 0.7, 0.7]})
+    opening2 = Opening({'position': [4, 0, 1.2], 'width':1.25, 'height':1, 'thickness':0.2, 'color': [0.7, 0.7, 0.7]})
+    sections1 = section.createOpening(opening1)
+    sections2 = section.createOpening(opening2)
+
+    for i in sections1 : 
+      mur.add(opening1)
+    for i in sections2 :
+      mur.add(opening2)
+    sections_provisoires = mur.objects
+    sections =[]
+ 
+    for element in sections_provisoires:
+      if element not in sections:
+        sections.append(element)
+      
+    configuration = Configuration()
+    for section in sections :
+      configuration.add(section)
+    return configuration
+
     
 def Q6():  
     pass  
@@ -99,14 +123,14 @@ def main():
     #configuration = Q1a()
     #configuration = Q1b_f()
     #configuration = Q2b()
-    configuration = Q2c()
-    # configuration = Q3a()
-    # configuration = Q4a()
-    # configuration = Q5a()
-    # configuration = Q5b()
-    # configuration = Q5c1()
-    # configuration = Q5c2() 
-    # configuration = Q5d()
+    #configuration = Q2c()
+    #configuration = Q3a()
+    #configuration = Q4a()
+    #configuration = Q5a()
+    #configuration = Q5b()
+    #configuration = Q5c1()
+    #configuration = Q5c2() 
+    configuration = Q5d()
     # configuration = Q6()
     configuration.display()     
          
